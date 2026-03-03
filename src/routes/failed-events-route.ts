@@ -3,8 +3,6 @@ import type { FailedEventsRepository } from "../repositories/failed-events-repos
 
 export function registerFailedEventsRoute(app: FastifyInstance, failedEventsRepository: FailedEventsRepository): void {
   app.get("/failed-events", async (_request, reply) => {
-    return reply.status(200).send({
-      items: failedEventsRepository.list()
-    });
+    return reply.status(200).send(failedEventsRepository.list());
   });
 }

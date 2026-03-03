@@ -33,7 +33,7 @@ describe("failed-events and replay", () => {
 
     const failedEvents = await setup.app.inject({ method: "GET", url: "/failed-events" });
     expect(failedEvents.statusCode).toBe(200);
-    expect(failedEvents.json().items.length).toBeGreaterThan(0);
+    expect(failedEvents.json().length).toBeGreaterThan(0);
   });
 
   it("replays a failed event by id", async () => {
@@ -55,7 +55,7 @@ describe("failed-events and replay", () => {
     });
 
     const failedEvents = await setup.app.inject({ method: "GET", url: "/failed-events" });
-    const first = failedEvents.json().items[0];
+    const first = failedEvents.json()[0];
 
     const replayResponse = await setup.app.inject({
       method: "POST",
