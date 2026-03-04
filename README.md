@@ -11,6 +11,7 @@ Spend around **45–60 minutes** improving the service. You do not need to finis
 ## Quickstart (Recommended: Native)
 
 Requirements:
+
 - Node.js 24+
 - npm
 
@@ -61,8 +62,21 @@ Service will be available at `http://localhost:3000`.
 
 Improve the system as far as you can within the timebox. We evaluate prioritization, reasoning, and code quality.
 
+Expected focus:
+
+- improve duplicate-handling behavior to reduce duplicate fulfillment side effects
+- improve failure/recovery behavior (including replay path safety)
+- add targeted tests for high-risk behavior (duplicate and/or failure/recovery scenarios)
+
 AI tools are welcome. Usage itself is not scored positively or negatively.
 If you use AI, include either:
+
 - your transcript/session log,
 - a short Loom walkthrough.
-(Bulleted summaries alone are not sufficient.)
+  (Bulleted summaries alone are not sufficient.)
+
+## Internal Maintainers
+
+This repository is public and only contains candidate-facing materials.
+
+Internal reviewer materials are stored in the company Google Drive docs.

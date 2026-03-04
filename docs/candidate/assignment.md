@@ -13,6 +13,12 @@ Improve the system as far as you can in **45–60 minutes**.
 
 You do not need to finish everything. Prioritize what matters most and make reasonable tradeoffs.
 
+## Expected Focus Areas
+Your solution should aim to improve at least these areas:
+- duplicate fulfillment protection (event/order re-delivery behavior)
+- failure handling and recovery behavior (including replay path safety)
+- targeted tests that verify at least one duplicate or failure/recovery scenario
+
 ## What We Evaluate
 - prioritization and decision-making
 - reliability thinking under failure/duplicates
@@ -52,6 +58,7 @@ npm run dev
    - what you changed
    - why you prioritized those changes
    - what remains and why
+   - what you would do next with more time
 7. Include evidence of validation (tests run, key scenarios checked).
 8. If you used AI, include either:
    - a transcript/session log link, or

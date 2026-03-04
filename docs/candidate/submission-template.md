@@ -30,6 +30,10 @@
 ## Tradeoffs
 - What tradeoffs did you choose under the timebox?
 
+## If You Had More Time
+- What would you do next?
+- Which risk would you address first and why?
+
 ## AI Usage (write "none" if not used)
 - Tool(s) used:
 - Transcript/session log link (required if AI used):
