@@ -80,3 +80,4 @@ If you use AI, include either:
 This repository is public and only contains candidate-facing materials.
 
 Internal reviewer materials are stored in the company Google Drive docs.
+Internal path: `Engineering > Hiring > Backend > Lead`.
