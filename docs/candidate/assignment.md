@@ -49,18 +49,20 @@ npm run dev
 - `GET /health`
 
 ## Deliverables
-1. Fork this repository to your own GitHub account.
-2. Implement your solution in your fork (main branch or a feature branch).
-3. Do **not** open a pull request to the upstream/original repository.
-4. Preferred: create a pull request **within your own fork** (for example, `your-branch` -> `your-main`) and share that PR link.
-5. If you do not use a PR workflow, share your fork URL and branch name.
-6. Include a short summary (`NOTES.md` in repo root or PR description):
+1. Clone this repository locally.
+2. Create a **new private repository** in your own GitHub account for your solution.
+3. Push your solution to that private repository (main branch or a feature branch).
+4. Add the assigned reviewer GitHub users as collaborators.
+5. Preferred: open a pull request inside your private repository (for example, `your-branch` -> `your-main`) and share that PR link.
+6. If you do not use a PR workflow, share your private repository URL and branch name.
+7. Do **not** open a pull request to the upstream/original public repository.
+8. Include a short summary (`NOTES.md` in repo root or PR description):
    - what you changed
    - why you prioritized those changes
    - what remains and why
    - what you would do next with more time
-7. Include evidence of validation (tests run, key scenarios checked).
-8. If you used AI, include either:
+9. Include evidence of validation (tests run, key scenarios checked).
+10. If you used AI, include either:
    - a transcript/session log link, or
    - a Loom link showing how you used AI.
    (Bulleted summaries alone are not sufficient.)

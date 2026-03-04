@@ -75,6 +75,15 @@ If you use AI, include either:
 - a short Loom walkthrough.
   (Bulleted summaries alone are not sufficient.)
 
+## Submission Workflow
+
+- Clone this repository.
+- Create a new **private** solution repository in your own GitHub account.
+- Push your solution to that private repository.
+- Add assigned reviewers as collaborators.
+- Open a PR in your private repository (preferred) and share that PR link.
+- Do not open a PR to this upstream public repository.
+
 ## Internal Maintainers
 
 This repository is public and only contains candidate-facing materials.

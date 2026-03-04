@@ -1,12 +1,14 @@
 # Submission Notes Template
 
 ## Repository Link
-- Fork URL:
+- Private solution repository URL:
 - Branch (if not main):
-- Pull request URL in your own fork (preferred):
+- Pull request URL in your private repository (preferred):
+- Reviewer collaborators added (GitHub usernames):
 
 ## Submission Rule Check
 - [ ] I did not open a PR to the upstream/original public repository.
+- [ ] I added the assigned reviewers as collaborators on my private repository.
 
 ## Summary
 - Briefly summarize your approach.
