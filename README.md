@@ -8,16 +8,29 @@ The current implementation is intentionally incomplete and may behave incorrectl
 
 Spend around **45–60 minutes** improving the service. You do not need to finish everything.
 
-## Running Locally
+## Quickstart (Recommended: Native)
 
 Requirements:
 - Node.js 20+
 - npm
 
-Install dependencies:
+Bootstrap once:
 
 ```bash
 npm install
+npm run setup
+```
+
+Run tests:
+
+```bash
+npm test
+```
+
+Run a quick health smoke check:
+
+```bash
+npm run smoke
 ```
 
 Start in dev mode:
@@ -26,11 +39,15 @@ Start in dev mode:
 npm run dev
 ```
 
-Run tests:
+## Optional Docker Fallback
+
+Use this path if your local Node environment is blocked or inconsistent.
 
 ```bash
-npm test
+docker compose up --build
 ```
+
+Service will be available at `http://localhost:3000`.
 
 ## Endpoints
 
