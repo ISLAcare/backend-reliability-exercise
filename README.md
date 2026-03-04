@@ -61,6 +61,8 @@ Service will be available at `http://localhost:3000`.
 
 Improve the system as far as you can within the timebox. We evaluate prioritization, reasoning, and code quality.
 
-AI tools are allowed. If you use them, include either:
-- your transcript/session log, or
-- a short Loom walkthrough explaining how you used them.
+AI tools are welcome. Usage itself is not scored positively or negatively.
+If you use AI, include either:
+- your transcript/session log,
+- a short Loom walkthrough.
+(Bulleted summaries alone are not sufficient.)
