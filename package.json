@@ -14,7 +14,8 @@
     "test:watch": "vitest",
     "reset-db": "tsx scripts/reset-db.ts",
     "seed": "tsx scripts/seed.ts",
-    "setup": "tsx scripts/setup.ts"
+    "setup": "tsx scripts/setup.ts",
+    "smoke": "tsx scripts/smoke.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.8.1",
