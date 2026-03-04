@@ -1,0 +1,14 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: backend-lead-starter:local
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_PATH: /app/data/app.db
+      FULFILLMENT_MODE: randomFail
+    volumes:
+      - ./data:/app/data
