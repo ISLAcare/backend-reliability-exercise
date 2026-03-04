@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=24"
   },
   "scripts": {
     "dev": "tsx watch src/server.ts",
@@ -30,7 +30,7 @@
     "vitest": "^3.0.8"
   },
   "volta": {
-    "node": "20.18.1",
+    "node": "24.0.0",
     "npm": "10.8.2"
   }
 }

@@ -11,7 +11,7 @@ Spend around **45–60 minutes** improving the service. You do not need to finis
 ## Quickstart (Recommended: Native)
 
 Requirements:
-- Node.js 20+
+- Node.js 24+
 - npm
 
 Bootstrap once:
