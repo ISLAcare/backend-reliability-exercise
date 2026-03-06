@@ -42,11 +42,21 @@ export async function processOrderPaid(
   event: OrderPaidEvent
 ): Promise<ProcessOrderPaidResult> {
   const logger = withLogContext(deps.logger, event.eventId, event.orderId);
-  deps.metrics.incrementAccepted();
 
+  // Idempotency: if this event was already processed, return success without side effects (duplicate-handling).
+  if (deps.processedEventsRepository.exists(event.eventId)) {
+    return {
+      ok: true,
+      status: "fulfilled",
+      orderId: event.orderId,
+      eventId: event.eventId,
+      message: "Already processed (idempotent)"
+    };
+  }
+
+  deps.metrics.incrementAccepted();
   deps.ordersRepository.upsertReceived(event);
   deps.outboxRepository.enqueue("order.paid", event.orderId, JSON.stringify(event));
-
   deps.ordersRepository.updateStatus(event.orderId, "processing", event.eventId);
 
   const maxAttempts = 3;
@@ -87,7 +97,8 @@ export async function processOrderPaid(
 
       logger.warn(`Downstream attempt ${attempt} failed: ${lastError}`);
 
-      if (attempt === 1) {
+      // Record failure only on first attempt and only if we don't already have a row for this event (avoid duplicate failed_events).
+      if (attempt === 1 && !deps.failedEventsRepository.getByEventId(event.eventId)) {
         deps.failedEventsRepository.insert(event.eventId, event.orderId, JSON.stringify(event), lastError);
       }
 
