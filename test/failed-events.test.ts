@@ -65,4 +65,37 @@ describe("failed-events and replay", () => {
     expect(replayResponse.statusCode).toBe(200);
     expect(replayResponse.json().failedEventId).toBe(first.id);
   });
+
+  // Replay path safety: replaying an already-replayed event does not reprocess (no duplicate fulfillment).
+  it("replaying already-replayed event returns success without reprocessing", async () => {
+    const setup = await createTestApp("failOncePerOrder");
+    cleanup = setup.cleanup;
+
+    const payload = {
+      eventId: "evt-replay-twice",
+      orderId: "ord-replay-twice",
+      occurredAt: new Date().toISOString(),
+      amount: 1000,
+      currency: "USD"
+    };
+
+    await setup.app.inject({
+      method: "POST",
+      url: "/events/order-paid",
+      payload
+    });
+
+    const failedList = await setup.app.inject({ method: "GET", url: "/failed-events" });
+    const failed = failedList.json().find((e: { eventId: string }) => e.eventId === payload.eventId);
+    expect(failed).toBeDefined();
+
+    const replay1 = await setup.app.inject({ method: "POST", url: `/replay/${failed.id}` });
+    expect(replay1.statusCode).toBe(200);
+    expect(replay1.json().result.ok).toBe(true);
+
+    const replay2 = await setup.app.inject({ method: "POST", url: `/replay/${failed.id}` });
+    expect(replay2.statusCode).toBe(200);
+    expect(replay2.json().result.message).toContain("Already replayed");
+    expect(setup.getFulfilledCount(payload.orderId)).toBe(1);
+  });
 });
