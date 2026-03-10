@@ -6,18 +6,22 @@ You are inheriting a TypeScript backend service that receives `OrderPaid` events
 The system is intentionally incomplete. It may behave incorrectly under:
 - duplicate delivery
 - transient downstream failures
-- partial system failures
+- duplicate-triggered side effects
 
 ## Objective
-Improve the system as far as you can in **45–60 minutes**.
+Complete the required reliability improvement in **60 minutes**.
 
-You do not need to finish everything. Prioritize what matters most and make reasonable tradeoffs.
+You do not need to fix everything. Prioritize the required goal first, then use remaining time on one optional extension if you choose.
+Plan for an additional **5-10 minutes** to write your submission notes.
 
-## Expected Focus Areas
-Your solution should aim to improve at least these areas:
-- duplicate fulfillment protection (event/order re-delivery behavior)
-- failure handling and recovery behavior (including replay path safety)
-- targeted tests that verify at least one duplicate or failure/recovery scenario
+## Required Goal
+- Ensure repeated delivery of the same `eventId` does not create more than one fulfillment side effect.
+- Ensure one bounded downstream timeout scenario does not create duplicate fulfillment side effects.
+- Add targeted tests covering duplicate delivery and the timeout scenario.
+
+## Optional Extension
+- Improve one additional reliability behavior of your choice.
+- Explain the tradeoff and what remains intentionally unsolved.
 
 ## What We Evaluate
 - prioritization and decision-making
@@ -44,8 +48,6 @@ npm run dev
 ## API Endpoints
 - `POST /events/order-paid`
 - `GET /orders/:orderId`
-- `GET /failed-events`
-- `POST /replay/:id`
 - `GET /health`
 
 ## Deliverables
@@ -64,10 +66,10 @@ npm run dev
 9. Include evidence of validation (tests run, key scenarios checked).
 10. If you used AI, include either:
    - a transcript/session log link, or
-   - a Loom link showing how you used AI.
+   - a screen recording link showing how you used AI.
    (Bulleted summaries alone are not sufficient.)
 
 ## AI Usage Policy
 - AI usage is not scored positively or negatively by itself.
 - We evaluate the quality of your engineering decisions, code, tests, and validation.
-- If you use AI, provide a transcript/session log link or Loom link so we can understand your process and verification steps.
+- If you use AI, provide a transcript/session log link or screen recording link so we can understand your process and verification steps.

@@ -2,11 +2,11 @@
 
 This service receives `OrderPaid` events and triggers downstream shipment fulfillment.
 
-The current implementation is intentionally incomplete and may behave incorrectly under duplicate delivery, transient downstream failure, and partial system failure.
+The current implementation is intentionally incomplete and may behave incorrectly under duplicate delivery and one bounded transient downstream failure case.
 
 ## Timebox
 
-Spend around **45–60 minutes** improving the service. You do not need to finish everything.
+Spend **60 minutes** improving the service. You do not need to finish everything.
 
 ## Quickstart (Recommended: Native)
 
@@ -54,35 +54,21 @@ Service will be available at `http://localhost:3000`.
 
 - `POST /events/order-paid`
 - `GET /orders/:orderId`
-- `GET /failed-events`
-- `POST /replay/:id`
 - `GET /health`
 
 ## Candidate Instructions
 
-Improve the system as far as you can within the timebox. We evaluate prioritization, reasoning, and code quality.
+The candidate-facing source of truth lives in:
 
-Expected focus:
+- [`docs/candidate/assignment.md`](./docs/candidate/assignment.md)
+- [`docs/candidate/submission-template.md`](./docs/candidate/submission-template.md)
 
-- improve duplicate-handling behavior to reduce duplicate fulfillment side effects
-- improve failure/recovery behavior (including replay path safety)
-- add targeted tests for high-risk behavior (duplicate and/or failure/recovery scenarios)
+Use those docs for:
 
-AI tools are welcome. Usage itself is not scored positively or negatively.
-If you use AI, include either:
-
-- your transcript/session log,
-- a short Loom walkthrough.
-  (Bulleted summaries alone are not sufficient.)
-
-## Submission Workflow
-
-- Clone this repository.
-- Create a new **private** solution repository in your own GitHub account.
-- Push your solution to that private repository.
-- Add assigned reviewers as collaborators.
-- Open a PR in your private repository (preferred) and share that PR link.
-- Do not open a PR to this upstream public repository.
+- required exercise scope
+- submission workflow
+- AI usage requirements
+- write-up expectations
 
 ## Internal Maintainers
 

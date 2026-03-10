@@ -4,3 +4,4 @@ coverage
 .env
 data/*.db
 !data/.gitkeep
+docs/internal

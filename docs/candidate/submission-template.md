@@ -39,6 +39,6 @@
 ## AI Usage (write "none" if not used)
 - Tool(s) used:
 - Transcript/session log link (required if AI used):
-- Loom link (required if AI used and no transcript/session log link):
+- Screen recording link (required if AI used and no transcript/session log link):
 - How you used them:
 - What you verified manually:

@@ -12,10 +12,10 @@
     "start": "node dist/src/server.js",
     "test": "vitest run",
     "test:watch": "vitest",
-    "reset-db": "tsx scripts/reset-db.ts",
-    "seed": "tsx scripts/seed.ts",
-    "setup": "tsx scripts/setup.ts",
-    "smoke": "tsx scripts/smoke.ts"
+    "reset-db": "node --import tsx scripts/reset-db.ts",
+    "seed": "node --import tsx scripts/seed.ts",
+    "setup": "node --import tsx scripts/setup.ts",
+    "smoke": "node --import tsx scripts/smoke.ts"
   },
   "dependencies": {
     "better-sqlite3": "^11.8.1",

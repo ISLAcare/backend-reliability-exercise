@@ -1,19 +1,16 @@
 import Fastify, { type FastifyInstance } from "fastify";
 import type { FulfillmentMode } from "./config.js";
+import { FakeFulfillmentClient } from "./clients/fake-fulfillment.client.js";
 import { openDatabase } from "./db/database.js";
 import { runMigrations } from "./db/migrate.js";
-import { OrdersRepository } from "./repositories/orders-repository.js";
-import { DeliveryAttemptsRepository } from "./repositories/delivery-attempts-repository.js";
-import { FailedEventsRepository } from "./repositories/failed-events-repository.js";
-import { ProcessedEventsRepository } from "./repositories/processed-events-repository.js";
-import { OutboxRepository } from "./repositories/outbox-repository.js";
-import { FakeFulfillmentClient } from "./clients/fake-fulfillment-client.js";
+import { DeliveryAttemptsRepository } from "./repositories/delivery-attempts.repository.js";
+import { OrdersRepository } from "./repositories/orders.repository.js";
+import { ProcessedEventsRepository } from "./repositories/processed-events.repository.js";
+import { registerGetOrderRoute } from "./routes/get-order.route.js";
+import { registerOrderPaidRoute } from "./routes/order-paid.route.js";
 import { MetricsService } from "./services/metrics.js";
-import { registerOrderPaidRoute } from "./routes/order-paid-route.js";
-import { registerGetOrderRoute } from "./routes/get-order-route.js";
-import { registerFailedEventsRoute } from "./routes/failed-events-route.js";
-import { registerReplayRoute } from "./routes/replay-route.js";
-import type { ProcessOrderPaidDependencies } from "./services/process-order-paid.js";
+import { OrderPaidService } from "./services/order-paid.service.js";
+import { OrderQueryService } from "./services/order-query.service.js";
 
 export type BuildAppOptions = {
   dbPath: string;
@@ -33,27 +30,21 @@ export function buildApp(options: BuildAppOptions): AppContext {
 
   const ordersRepository = new OrdersRepository(db);
   const deliveryAttemptsRepository = new DeliveryAttemptsRepository(db);
-  const failedEventsRepository = new FailedEventsRepository(db);
   const processedEventsRepository = new ProcessedEventsRepository(db);
-  const outboxRepository = new OutboxRepository(db);
   const fulfillmentClient = new FakeFulfillmentClient(options.fulfillmentMode);
   const metrics = new MetricsService();
-
-  const processingDeps: ProcessOrderPaidDependencies = {
+  const orderPaidService = new OrderPaidService({
     logger: app.log,
-    ordersRepository,
-    deliveryAttemptsRepository,
-    failedEventsRepository,
-    processedEventsRepository,
-    outboxRepository,
-    fulfillmentClient,
+    ordersStore: ordersRepository,
+    deliveryAttemptsStore: deliveryAttemptsRepository,
+    processedEventsStore: processedEventsRepository,
+    fulfillmentGateway: fulfillmentClient,
     metrics
-  };
+  });
+  const orderQueryService = new OrderQueryService(ordersRepository);
 
-  registerOrderPaidRoute(app, processingDeps);
-  registerGetOrderRoute(app, ordersRepository);
-  registerFailedEventsRoute(app, failedEventsRepository);
-  registerReplayRoute(app, failedEventsRepository, processingDeps);
+  registerOrderPaidRoute(app, orderPaidService);
+  registerGetOrderRoute(app, orderQueryService);
 
   app.get("/health", async () => ({
     status: "ok",

@@ -12,4 +12,12 @@ export class ProcessedEventsRepository {
       )
       .run(eventId, orderId, nowIso());
   }
+
+  has(eventId: string): boolean {
+    const row = this.db.prepare("SELECT 1 FROM processed_events WHERE event_id = ?").get(eventId) as
+      | { 1: number }
+      | undefined;
+
+    return Boolean(row);
+  }
 }
