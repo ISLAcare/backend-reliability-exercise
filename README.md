@@ -2,7 +2,8 @@
 
 This service receives `OrderPaid` events and triggers downstream shipment fulfillment.
 
-The current implementation is intentionally incomplete and may behave incorrectly under duplicate delivery and one bounded transient downstream failure case.
+The current implementation is intentionally incomplete and may behave incorrectly under duplicate delivery and one bounded ambiguous-timeout failure case.
+The fake fulfillment client can simulate normal success, deterministic transient failures, and one deterministic timeout case where the shipment may already have been created even though the caller saw a timeout.
 
 ## Timebox
 
@@ -12,7 +13,7 @@ Spend **60 minutes** improving the service. You do not need to finish everything
 
 Requirements:
 
-- Node.js 24+
+- Node.js 24.x
 - npm
 
 Bootstrap once:

@@ -8,8 +8,8 @@ function getNodeMajor(): number {
 
 function ensureNodeVersion(): void {
   const major = getNodeMajor();
-  if (major < 24) {
-    console.error(`Node 24+ is required. Current version: ${process.versions.node}`);
+  if (major !== 24) {
+    console.error(`Use Node 24.x for this exercise. Current version: ${process.versions.node}`);
     process.exit(1);
   }
 }

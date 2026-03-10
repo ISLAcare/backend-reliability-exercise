@@ -1,7 +1,12 @@
 import fs from "node:fs";
 import path from "node:path";
 
-export type FulfillmentMode = "success" | "failOncePerOrder" | "alwaysFail" | "randomFail";
+export type FulfillmentMode =
+  | "success"
+  | "failOncePerOrder"
+  | "alwaysFail"
+  | "randomFail"
+  | "timeoutAfterFulfillmentOnce";
 
 export type AppConfig = {
   port: number;

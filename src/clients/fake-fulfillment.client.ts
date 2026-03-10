@@ -20,6 +20,7 @@ export class FakeFulfillmentClient {
   private readonly attemptCounts = new Map<string, number>();
   private readonly fulfilledCounts = new Map<string, number>();
   private readonly failedOnce = new Set<string>();
+  private readonly timedOutAfterFulfillmentOnce = new Set<string>();
 
   constructor(private readonly mode: FulfillmentMode) {}
 
@@ -27,8 +28,24 @@ export class FakeFulfillmentClient {
     const count = (this.attemptCounts.get(orderId) ?? 0) + 1;
     this.attemptCounts.set(orderId, count);
 
-    const shouldFail = this.shouldFail(orderId);
     const at = new Date().toISOString();
+
+    if (this.mode === "timeoutAfterFulfillmentOnce") {
+      if (!this.timedOutAfterFulfillmentOnce.has(orderId)) {
+        this.timedOutAfterFulfillmentOnce.add(orderId);
+        this.fulfilledCounts.set(orderId, (this.fulfilledCounts.get(orderId) ?? 0) + 1);
+        this.attempts.push({ orderId, eventId, at, success: false, mode: this.mode });
+        throw new FakeFulfillmentError(
+          "timeout",
+          "downstream timed out after creating the shipment"
+        );
+      }
+
+      this.attempts.push({ orderId, eventId, at, success: true, mode: this.mode });
+      return;
+    }
+
+    const shouldFail = this.shouldFail(orderId);
 
     if (shouldFail) {
       this.attempts.push({ orderId, eventId, at, success: false, mode: this.mode });
@@ -59,6 +76,7 @@ export class FakeFulfillmentClient {
     this.attemptCounts.clear();
     this.fulfilledCounts.clear();
     this.failedOnce.clear();
+    this.timedOutAfterFulfillmentOnce.clear();
   }
 
   private shouldFail(orderId: string): boolean {

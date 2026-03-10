@@ -66,6 +66,16 @@ export class OrderPaidService {
     const logger = withLogContext(this.deps.logger, event.eventId, event.orderId);
     this.deps.metrics.incrementAccepted();
 
+    if (this.deps.processedEventsStore.has(event.eventId)) {
+      return {
+        ok: true,
+        status: "fulfilled",
+        orderId: event.orderId,
+        eventId: event.eventId,
+        message: "Already processed"
+      };
+    }
+
     this.deps.ordersStore.upsertReceived(event);
     this.deps.ordersStore.updateStatus(event.orderId, "processing", event.eventId);
 

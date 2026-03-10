@@ -58,4 +58,59 @@ describe("order-paid.route", () => {
       expect(setup.getFulfilledCount(payload.orderId)).toBe(1);
     });
   });
+
+  describe("when the same event is delivered twice", () => {
+    it("does not create more than one fulfillment side effect", async () => {
+      const setup = await createTestApp("success");
+      cleanup = setup.cleanup;
+
+      const payload = {
+        eventId: "evt-duplicate",
+        orderId: "ord-duplicate",
+        occurredAt: new Date().toISOString(),
+        amount: 1800,
+        currency: "USD"
+      };
+
+      const firstResponse = await setup.app.inject({
+        method: "POST",
+        url: "/events/order-paid",
+        payload
+      });
+
+      const secondResponse = await setup.app.inject({
+        method: "POST",
+        url: "/events/order-paid",
+        payload
+      });
+
+      expect(firstResponse.statusCode).toBe(202);
+      expect(secondResponse.statusCode).toBe(202);
+      expect(setup.getFulfilledCount(payload.orderId)).toBe(1);
+    });
+  });
+
+  describe("when the downstream times out after creating the shipment", () => {
+    it("does not create more than one fulfillment side effect", async () => {
+      const setup = await createTestApp("timeoutAfterFulfillmentOnce");
+      cleanup = setup.cleanup;
+
+      const payload = {
+        eventId: "evt-ambiguous-timeout",
+        orderId: "ord-ambiguous-timeout",
+        occurredAt: new Date().toISOString(),
+        amount: 2100,
+        currency: "USD"
+      };
+
+      const response = await setup.app.inject({
+        method: "POST",
+        url: "/events/order-paid",
+        payload
+      });
+
+      expect(response.statusCode).toBe(202);
+      expect(setup.getFulfilledCount(payload.orderId)).toBe(1);
+    });
+  });
 });

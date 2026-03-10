@@ -5,7 +5,7 @@ You are inheriting a TypeScript backend service that receives `OrderPaid` events
 
 The system is intentionally incomplete. It may behave incorrectly under:
 - duplicate delivery
-- transient downstream failures
+- ambiguous downstream timeouts
 - duplicate-triggered side effects
 
 ## Objective
@@ -15,8 +15,8 @@ You do not need to fix everything. Prioritize the required goal first, then use 
 Plan for an additional **5-10 minutes** to write your submission notes.
 
 ## Required Goal
-- Ensure repeated delivery of the same `eventId` does not create more than one fulfillment side effect.
-- Ensure one bounded downstream timeout scenario does not create duplicate fulfillment side effects.
+- Reduce the risk of duplicate fulfillment side effects under duplicate event delivery.
+- Improve the bounded ambiguous-timeout scenario so retries do not create additional duplicate shipment side effects.
 - Add targeted tests covering duplicate delivery and the timeout scenario.
 
 ## Optional Extension
@@ -44,6 +44,8 @@ npm test
 npm run smoke
 npm run dev
 ```
+
+Use Node 24.x for this exercise.
 
 ## API Endpoints
 - `POST /events/order-paid`
@@ -73,3 +75,6 @@ npm run dev
 - AI usage is not scored positively or negatively by itself.
 - We evaluate the quality of your engineering decisions, code, tests, and validation.
 - If you use AI, provide a transcript/session log link or screen recording link so we can understand your process and verification steps.
+
+## Failure Mode in Scope
+One required failure mode is an ambiguous timeout: the downstream may successfully create a shipment for an order, but the orchestrator receives a timeout instead of a success response. Your solution should avoid creating additional duplicate shipment side effects in that case.
