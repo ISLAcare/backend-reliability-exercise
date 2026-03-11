@@ -34,6 +34,7 @@ Plan for an additional **5-10 minutes** to write your submission notes.
 - Keep changes scoped and practical.
 - You can refactor, but avoid unnecessary architecture expansion.
 - You may add tests and docs.
+- If you notice important follow-up work or concerns that you do not implement, you may leave concise inline `TODO` notes or code comments where that context is useful.
 - AI tools are welcome.
 
 ## Runbook
@@ -65,6 +66,7 @@ Use Node 24.x for this exercise.
    - why you prioritized those changes
    - what remains and why
    - what you would do next with more time
+   - any broader repository or implementation observations you think are worth calling out, even if they were outside the scoped task
 9. Include evidence of validation (tests run, key scenarios checked).
 10. If you used AI, include either:
    - a transcript/session log link, or
@@ -78,3 +80,7 @@ Use Node 24.x for this exercise.
 
 ## Failure Mode in Scope
 One required failure mode is an ambiguous timeout: the downstream may successfully create a shipment for an order, but the orchestrator receives a timeout instead of a success response. Your solution should avoid creating additional duplicate shipment side effects in that case.
+
+## Notes on Communication
+- Concise inline comments are welcome when they help explain a risk, deferred improvement, or design concern that you noticed while working.
+- Keep those comments focused. We are not looking for a full code audit inside the source files.

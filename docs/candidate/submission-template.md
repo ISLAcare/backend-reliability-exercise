@@ -23,6 +23,7 @@
 - Data/model/schema changes (if any):
 - Observability/logging changes:
 - Test changes:
+- Inline TODOs/comments added to flag deferred work or concerns (if any):
 
 ## Validation
 - Commands run:
@@ -35,6 +36,10 @@
 ## If You Had More Time
 - What would you do next?
 - Which risk would you address first and why?
+
+## Broader Repository Observations
+- Any non-task-specific design, architecture, testing, or maintainability concerns you noticed:
+- Any areas that felt intentionally weak, confusing, or worth revisiting later:
 
 ## AI Usage (write "none" if not used)
 - Tool(s) used:
